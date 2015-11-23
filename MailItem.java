@@ -7,27 +7,54 @@
  */
 public class MailItem
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
+    // Atributo que nos dira quien nos envia un mensaje
+    private String from;
+    // Atributo que nos dira a quien enviamos un mensaje
+    private String to;
+    // Atributo que contendra el cuerpo del mensaje
+    private String message;
+    
     /**
-     * Constructor for objects of class MailItem
+     * Constructor que nos permite crear un nuevo mail
+     * Le pasaremos como parametros de quien viene (de)
+     * A quien va dirigido (para)
+     * Y el mensaje (mensaje)
      */
-    public MailItem()
-    {
-        // initialise instance variables
-        x = 0;
+    public MailItem(String de, String para, String mensaje){
+        // Guardamos en los atributos los Strings pasados como parametros al constructor
+        from = de;
+        to = para;
+        message = mensaje;
     }
-
+    
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Metodo que devolvera un String para ver de quien nos viene el mensaje.
      */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public String getFrom(){
+        return from;
+    }
+    
+    /**
+     * Metodo que devolvera un String para ver a quien enviamos un mensaje.
+     */
+    public String getTo(){
+        return to;
+    }
+    
+    /**
+     * Metodo que devolvera un String con el cuerpo del mensaje.
+     */
+    public String getMessage(){
+        return message;
+    }
+    
+    /**
+     * Metodo que imprimira por pantalla de quien viene el mensaje, para quien va
+     * y el cuerpo de ese mensaje.
+     */
+    public void print(){
+        System.out.println("From: " + from);
+        System.out.println("To: " + to);
+        System.out.println("Message: " + message);
     }
 }
