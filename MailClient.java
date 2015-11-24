@@ -7,27 +7,55 @@
  */
 public class MailClient
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    // Atributo de la clase MailServer que representara el servidor asociado al usuario.
+    private MailServer server;
+    // Atributo que guarda en un String el usuario.
+    private String user;
 
     /**
-     * Constructor for objects of class MailClient
+     * Constructor que permitira crear un nuevo cliente a partir de un servidor y asignado
+     * a un usuario.
      */
-    public MailClient()
-    {
-        // initialise instance variables
-        x = 0;
+    public MailClient(MailServer servidor, String usuario){
+        server = servidor;
+        user = usuario;
     }
-
+     /**
+      * Metodo que nos recuperara el siguiente mail que tenga un usuario, si no tuvira ninguno
+      * devolvera null.
+      */
+    public MailItem getNextMailItem(){
+        return server.getNextMailItem(user);
+    }
+    
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Metodo que nos imprimira por pantalla el siguiente mensaje disponible que tenga, si no
+     * hubiera ninguno imprimira un mensaje diciendonoslo.
      */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public void printNextMailItem(){
+        // Obtenemos mediante el metodo anterior el siguiente mensaje, sera de la clase MailItem
+        MailItem mensaje = getNextMailItem();
+        // Si es distinto de null, luego exite un mensaje, lo imprime con un metodo de la clase
+        // MailItem
+        if(mensaje != null){
+            mensaje.print();
+        }
+        else{
+            // Si no imprimimos que no hay ningun mensaje en la bandeja de entrada.
+            System.out.println("No hay ningun mensaje en la bandeja");
+        }
+    }
+    
+    /**
+     * Metodo que nos permite crear un mensaje miEmail de la clase MailItem y dejarlo guardado en
+     * el servidor.
+     */
+    public void sendMailItem(String para, String mensaje){
+        // Creamos miEmail de la clase MailItem con un usuario(de quien es), para quien es y 
+        // un mensaje.
+        MailItem miEmail = new MailItem(user, para, mensaje);
+        // Hacemos una llamada a el metodo post que se encarga de "fijarlo" en el servidor, como
+        // necesita un parametro le pasamos nuestro miEmail creado.
+        server.post(miEmail);
     }
 }
