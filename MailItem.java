@@ -52,6 +52,13 @@ public class MailItem
     }
     
     /**
+     * Metodo para obtener el asunto del mensaje.
+     */
+    public String getSubject(){
+        return subject;
+    }
+    
+    /**
      * Metodo que imprimira por pantalla de quien viene el mensaje, para quien va
      * y el cuerpo de ese mensaje.
      */
