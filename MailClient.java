@@ -16,9 +16,9 @@ public class MailClient
      * Constructor que permitira crear un nuevo cliente a partir de un servidor y asignado
      * a un usuario.
      */
-    public MailClient(MailServer servidor, String usuario){
-        server = servidor;
-        user = usuario;
+    public MailClient(MailServer server, String user){
+        this.server = server;
+        this.user = user;
     }
      /**
       * Metodo que nos recuperara el siguiente mail que tenga un usuario, si no tuvira ninguno

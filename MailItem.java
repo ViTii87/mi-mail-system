@@ -20,11 +20,11 @@ public class MailItem
      * A quien va dirigido (para)
      * Y el mensaje (mensaje)
      */
-    public MailItem(String de, String para, String mensaje){
+    public MailItem(String from, String to, String message){
         // Guardamos en los atributos los Strings pasados como parametros al constructor
-        from = de;
-        to = para;
-        message = mensaje;
+        this.from = from;
+        this.to = to;
+        this.message = message;
     }
     
     /**
