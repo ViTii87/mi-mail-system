@@ -58,8 +58,12 @@ public class MailClient
         // necesita un parametro le pasamos nuestro miEmail creado.
         server.post(miEmail);
     }
-    
+     /**
+      * Metodo que permite imprimir el numero de Emails que tiene el usuario en el buzon.
+      */
     public void cuantosEmailsTengo(){
+        // Creamos una variable local guardar el numero de email mediante una llamada a un metodo de la clase server.
+        // Nota: no haria falta crear la variable local, se podria usar directamente en println, pero asi queda mas claro
         int numeroEmails = server.howManyMailItems(user);
         System.out.println("Tienes " + numeroEmails + " Emails en el buzon.");
     }
