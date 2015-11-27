@@ -13,6 +13,8 @@ public class MailItem
     private String to;
     // Atributo que contendra el cuerpo del mensaje
     private String message;
+    // Atributo para definir el asunto del mensaje
+    private String subject;
     
     /**
      * Constructor que nos permite crear un nuevo mail
@@ -20,10 +22,11 @@ public class MailItem
      * A quien va dirigido (para)
      * Y el mensaje (mensaje)
      */
-    public MailItem(String from, String to, String message){
+    public MailItem(String from, String to, String subject, String message){
         // Guardamos en los atributos los Strings pasados como parametros al constructor
         this.from = from;
         this.to = to;
+        this.subject = subject;
         this.message = message;
     }
     
@@ -55,6 +58,7 @@ public class MailItem
     public void print(){
         System.out.println("From: " + from);
         System.out.println("To: " + to);
+        System.out.println("Subject: " + subject);
         System.out.println("Message: " + message);
     }
 }

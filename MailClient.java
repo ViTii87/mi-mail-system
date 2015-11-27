@@ -50,10 +50,10 @@ public class MailClient
      * Metodo que nos permite crear un mensaje miEmail de la clase MailItem y dejarlo guardado en
      * el servidor.
      */
-    public void sendMailItem(String para, String mensaje){
+    public void sendMailItem(String para, String asunto, String mensaje){
         // Creamos miEmail de la clase MailItem con un usuario(de quien es), para quien es y 
         // un mensaje.
-        MailItem miEmail = new MailItem(user, para, mensaje);
+        MailItem miEmail = new MailItem(user, para, asunto, mensaje);
         // Hacemos una llamada a el metodo post que se encarga de "fijarlo" en el servidor, como
         // necesita un parametro le pasamos nuestro miEmail creado.
         server.post(miEmail);
