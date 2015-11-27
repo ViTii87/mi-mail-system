@@ -58,4 +58,9 @@ public class MailClient
         // necesita un parametro le pasamos nuestro miEmail creado.
         server.post(miEmail);
     }
+    
+    public void cuantosEmailsTengo(){
+        int numeroEmails = server.howManyMailItems(user);
+        System.out.println("Tienes " + numeroEmails + " Emails en el buzon.");
+    }
 }
