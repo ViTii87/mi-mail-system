@@ -40,6 +40,7 @@ public class MailClient
         // Si es distinto de null, luego exite un mensaje, lo imprime con un metodo de la clase
         // MailItem
         if(mensaje != null){
+            ultimoEmail = mensaje;
             mensaje.print();
         }
         else{
