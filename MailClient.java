@@ -23,7 +23,7 @@ public class MailClient
     private int mensSpam;
     // Atributo para guardar la direecion de la persona que envio el mensaje mas largo
     private String dirPeronaMasLarga;
-    
+    // Atributo para guardar el contenido del ultimo mensaje
     private String ultimoMensGuardado;
 
     /**
@@ -63,7 +63,6 @@ public class MailClient
                 spam = false;
                 ultimoEmail = email;
             }
-            //int longUlti = mens.length();
             if(mens.length() > ultimoMensGuardado.length() ){
                 ultimoMensGuardado = mens;
                 dirPeronaMasLarga = email.getFrom();
@@ -148,6 +147,9 @@ public class MailClient
 
     }
     
+    /**
+     * Metod que permite imprimir por pantalla una serie de estadisticas para el usuario
+     */
     public void showStats(){
         System.out.println("Numero de mensajes enviados: " + enviados);
         System.out.println("Numero de mensajes recibidos: " + recibidos);
