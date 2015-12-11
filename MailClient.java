@@ -25,6 +25,8 @@ public class MailClient
     private String dirPeronaMasLarga;
     // Atributo para guardar el contenido del ultimo mensaje
     private String ultimoMensGuardado;
+    // Atributo para guardar el ultimo mensaje de Spam recibido
+    private MailItem ultimoSpam;
 
     /**
      * Constructor que permitira crear un nuevo cliente a partir de un servidor y asignado
@@ -48,6 +50,10 @@ public class MailClient
         // Si es distinto de email lo guardamos en nuestro atributo, sino devolvemos null.
         if(email != null){
             String mens = email.getMessage();
+            if(mens.length() > ultimoMensGuardado.length() ){
+                ultimoMensGuardado = mens;
+                dirPeronaMasLarga = email.getFrom();
+            }
             if(mens.contains("regalo") || (mens.contains("promocion"))){
                 if(mens.contains("trabajo")){
                     spam = false;
@@ -55,6 +61,7 @@ public class MailClient
                 }
                 else{
                     spam = true;
+                    ultimoSpam = email;
                     email = null;
                     mensSpam += 1;
                 }
@@ -62,10 +69,6 @@ public class MailClient
             else{
                 spam = false;
                 ultimoEmail = email;
-            }
-            if(mens.length() > ultimoMensGuardado.length() ){
-                ultimoMensGuardado = mens;
-                dirPeronaMasLarga = email.getFrom();
             }
             recibidos += 1;
         }
@@ -167,6 +170,19 @@ public class MailClient
         else{
             System.out.println("Direccion de la persona con mensaje mas largo: Ninguna");
             System.out.println("Numero de caracteres del email mas largo: 0");
+        }
+    }
+    
+    /**
+     * Metodo para mostrar el contenido del ultimo correo que tiene spam
+     */
+    public void showInfoLastSpam(){
+        if(ultimoSpam != null){
+            System.out.println("Informacion del ultimo correo con Spam");
+            ultimoSpam.print();
+        }
+        else{
+            System.out.println("No hay correo con Spam");
         }
     }
 }
