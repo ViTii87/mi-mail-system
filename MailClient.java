@@ -13,6 +13,18 @@ public class MailClient
     private String user;
     // Atributo para dejar guardado el ultimo email.
     private MailItem ultimoEmail;
+    // Atributo para guardar si es spam
+    private boolean spam;
+    // Atributo para el numero de mensajes enviados
+    private int enviados;
+    // Atributo para el numero de mensajes recibidos
+    private int recibidos;
+    // Atributo para guardar el numero de mensajes spam
+    private int mensSpam;
+    // Atributo para guardar la direecion de la persona que envio el mensaje mas largo
+    private String dirPeronaMasLarga;
+    
+    private String ultimoMensGuardado;
 
     /**
      * Constructor que permitira crear un nuevo cliente a partir de un servidor y asignado
@@ -22,6 +34,8 @@ public class MailClient
         this.server = server;
         this.user = user;
         ultimoEmail = null;
+        this.spam = false;
+        ultimoMensGuardado="";
     }
 
     /**
@@ -33,7 +47,28 @@ public class MailClient
         MailItem email = server.getNextMailItem(user);
         // Si es distinto de email lo guardamos en nuestro atributo, sino devolvemos null.
         if(email != null){
-            ultimoEmail = email;
+            String mens = email.getMessage();
+            if(mens.contains("regalo") || (mens.contains("promocion"))){
+                if(mens.contains("trabajo")){
+                    spam = false;
+                    ultimoEmail = email;
+                }
+                else{
+                    spam = true;
+                    email = null;
+                    mensSpam += 1;
+                }
+            }
+            else{
+                spam = false;
+                ultimoEmail = email;
+            }
+            //int longUlti = mens.length();
+            if(mens.length() > ultimoMensGuardado.length() ){
+                ultimoMensGuardado = mens;
+                dirPeronaMasLarga = email.getFrom();
+            }
+            recibidos += 1;
         }
         return email;
     }
@@ -52,8 +87,13 @@ public class MailClient
             mensaje.print();
         }
         else{
-            // Si no imprimimos que no hay ningun mensaje en la bandeja de entrada.
-            System.out.println("No hay ningun mensaje en la bandeja");
+            if(spam == true){
+                System.out.println("Solo tienes Spam");
+            }
+            else{
+                // Si no imprimimos que no hay ningun mensaje en la bandeja de entrada.
+                System.out.println("No hay ningun mensaje en la bandeja");
+            }
         }
     }
 
@@ -68,6 +108,7 @@ public class MailClient
         // Hacemos una llamada a el metodo post que se encarga de "fijarlo" en el servidor, como
         // necesita un parametro le pasamos nuestro miEmail creado.
         server.post(miEmail);
+        enviados += 1;
     }
 
     /**
@@ -90,7 +131,7 @@ public class MailClient
         if(mensaje != null){
             sendMailItem(mensaje.getFrom(), "RE " + mensaje.getSubject(), "Estoy de vacaciones.\n\t " + mensaje.getMessage());
         }
-
+        enviados += 1;
     }
 
     /**
@@ -105,5 +146,25 @@ public class MailClient
             System.out.println("No hay mensajes en la bandeja de entrada");
         }
 
+    }
+    
+    public void showStats(){
+        System.out.println("Numero de mensajes enviados: " + enviados);
+        System.out.println("Numero de mensajes recibidos: " + recibidos);
+        System.out.println("Numero de mensajes spam: " + mensSpam);
+        if(recibidos>0){
+            System.out.println("Porcentaje Spam: " + 100*(mensSpam)/recibidos);
+        }
+        else{
+            System.out.println("Porcentaje Spam: 0%");
+        }
+        if(dirPeronaMasLarga != null){
+            System.out.println("Direccion de la persona con mensaje mas largo: " + dirPeronaMasLarga);
+            System.out.println("Numero de caracteres del email mas largo: " + ultimoMensGuardado.length());
+        }
+        else{
+            System.out.println("Direccion de la persona con mensaje mas largo: Ninguna");
+            System.out.println("Numero de caracteres del email mas largo: 0");
+        }
     }
 }
