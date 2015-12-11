@@ -185,4 +185,12 @@ public class MailClient
             System.out.println("No hay correo con Spam");
         }
     }
+    
+    /**
+     * Metodo para enviar un mensaje con un error de transmision
+     */
+    public void sendMailItemWithTransmissionError(String para, String asunto, String mensaje){
+        mensaje = mensaje.replace("o","#o").replace("i","$i");
+        sendMailItem(para, asunto, mensaje);
+    }
 }
