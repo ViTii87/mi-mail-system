@@ -62,14 +62,14 @@ public class MailServer
      * Add the given mail item to the message list, modificado para que lo postee si no tiene errores de transmision
      * @param item The mail item to be stored on the server.
      */
-    public void post(MailItem item, String mensaje)
+    public void post(MailItem item)
     {
-        int longitudOri = mensaje.length();
-        if(mensaje.contains("#o") || mensaje.contains("$i")){
-            mensaje = mensaje.replace("#o","o").replace("$i","i");
+        int longitudOri = item.getMessage().length();
+        String mensaje = item.getMessage();
+        if(item.getMessage().contains("#o") || item.getMessage().contains("$i")){
+            mensaje = item.getMessage().replace("#o","o").replace("$i","i");
         }
         int longitudDespues = mensaje.length();
-        
         if(longitudOri == longitudDespues){
             items.add(item);
         }
