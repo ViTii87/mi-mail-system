@@ -109,7 +109,7 @@ public class MailClient
         MailItem miEmail = new MailItem(user, para, asunto, mensaje);
         // Hacemos una llamada a el metodo post que se encarga de "fijarlo" en el servidor, como
         // necesita un parametro le pasamos nuestro miEmail creado.
-        server.post(miEmail);
+        server.post(miEmail, mensaje);
         enviados += 1;
     }
 
